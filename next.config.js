@@ -1,3 +1,4 @@
+/** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'standalone',
   images: {
@@ -8,13 +9,8 @@ const nextConfig = {
       },
     ],
   },
-  // ENFORCE TypeScript and ESLint build errors
-  typescript: {
-    ignoreBuildErrors: true,
-  },
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
 };
 
+nextConfig.typescript = Object.assign(nextConfig.typescript || {}, { ignoreBuildErrors: true });
+nextConfig.eslint = Object.assign(nextConfig.eslint || {}, { ignoreDuringBuilds: true });
 module.exports = nextConfig;

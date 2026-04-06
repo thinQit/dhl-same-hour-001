@@ -1,60 +1,80 @@
-"use client";
+'use client'
 
-import { useState } from "react";
-import { cn } from "@/lib/utils";
-import { ChevronDown } from "lucide-react";
+import { motion } from 'framer-motion'
+import { cn } from '@/lib/utils'
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion'
 
 interface FAQItem {
-  question: string;
-  answer: string;
+  question: string
+  answer: string
 }
 
 interface FAQAccordionProps {
-  title?: string;
-  items?: FAQItem[];
-  className?: string;
+  title: string
+  subtitle: string
+  items: FAQItem[]
+  className: string
 }
 
 export default function FAQAccordion({
-  title = "Frequently Asked Questions",
+  title = 'Frequently Asked Questions',
+  subtitle = 'Answers to common DHL Same Hour Delivery operational questions.',
   items = [
     {
-      question: "How fast can you pick up a parcel?",
-      answer: "In most metro areas, pickup starts within 20 minutes after confirmation.",
+      question: 'How fast can DHL arrange a same-hour pickup?',
+      answer: 'Most pickups are dispatched within minutes after confirmation, subject to location and service availability.',
     },
     {
-      question: "Can I track my same hour shipment live?",
-      answer: "Yes, we provide real-time tracking and proof of delivery updates.",
+      question: 'Do you provide real-time tracking and proof of delivery?',
+      answer: 'Yes. Every mission includes live tracking visibility and digital proof-of-delivery documentation.',
     },
     {
-      question: "Do you support enterprise contracts?",
-      answer: "Yes, we offer SLA-based plans for recurring urgent delivery needs.",
+      question: 'Can you handle legal documents and sensitive materials?',
+      answer: 'Absolutely. We support chain-of-custody procedures for legal, healthcare, and compliance-critical shipments.',
+    },
+    {
+      question: 'Is service available outside standard business hours?',
+      answer: 'Yes. DHL Same Hour Delivery operates 24/7, including weekends and holidays.',
     },
   ],
-  className = "",
+  className = '',
 }: Partial<FAQAccordionProps>) {
-  const [openIndex, setOpenIndex] = useState(0);
-
   return (
-    <section className={className}>
-      <h2 className="text-3xl font-semibold text-[#1E3A5F]">{title}</h2>
-      <div className="mt-6 space-y-3">
-        {items.map((item, idx) => {
-          const isOpen = openIndex === idx;
-          return (
-            <div key={item.question + idx} className="rounded-xl border border-slate-200 bg-white">
-              <button
-                className="flex w-full items-center justify-between px-4 py-4 text-left"
-                onClick={() => setOpenIndex(isOpen ? -1 : idx)}
-              >
-                <span className="font-medium text-[#1E3A5F]">{item.question}</span>
-                <ChevronDown className={cn("h-4 w-4 transition-transform", isOpen && "rotate-180")} />
-              </button>
-              {isOpen && <p className="px-4 pb-4 text-sm text-slate-600">{item.answer}</p>}
-            </div>
-          );
-        })}
+    <section className={cn('py-16 md:py-20', className)}>
+      <div className="mx-auto max-w-4xl px-4 md:px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 22 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.5 }}
+          className="mb-8"
+        >
+          <h2 className="font-serif text-3xl font-bold tracking-tight text-foreground md:text-4xl">{title}</h2>
+          <p className="mt-2 text-muted-foreground">{subtitle}</p>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 22 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="rounded-xl border bg-card p-2 md:p-4"
+        >
+          <Accordion type="single" collapsible className="w-full">
+            {items.map((item, index) => (
+              <AccordionItem key={item.question} value={'item-' + index}>
+                <AccordionTrigger className="text-left text-foreground">{item.question}</AccordionTrigger>
+                <AccordionContent className="text-muted-foreground">{item.answer}</AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </motion.div>
       </div>
     </section>
-  );
+  )
 }

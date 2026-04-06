@@ -1,7 +1,7 @@
 export default function Loading() {
   return (
-    <main className="min-h-[60vh] bg-background flex items-center justify-center">
-      <div className="animate-pulse text-muted-foreground">Loading DHL Same Hour Delivery...</div>
-    </main>
-  )
+    <div style={{ display: "flex", justifyContent: "center", alignItems: "center", minHeight: "100vh" }}>
+      <div style={{ width: "2rem", height: "2rem", border: "3px solid #e5e7eb", borderTopColor: "#3b82f6", borderRadius: "50%", animation: "spin 0.6s linear infinite" }} />
+    </div>
+  );
 }

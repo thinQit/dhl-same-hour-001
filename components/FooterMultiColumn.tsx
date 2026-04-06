@@ -16,31 +16,28 @@ interface FooterMultiColumnProps {
 }
 
 export default function FooterMultiColumn({
-  brand = "Apex Executive Advisory",
-  description = "Strategic leadership consulting for growth-stage and enterprise teams.",
+  brand = "DHL Same Hour Delivery",
+  description = "Time-critical delivery with legal-grade reliability, verified handoff, and chain-of-custody discipline.",
   columns = [
     {
-      title: "Quick Links",
+      title: "Services",
       links: [
-        { label: "Services", href: "#services" },
-        { label: "About", href: "#about" },
-        { label: "Case Studies", href: "#case-studies" },
+        { label: "Same-Hour Delivery", href: "/same-hour-delivery" },
+        { label: "Proven Business Cases", href: "/proven-business-cases" },
       ],
     },
     {
-      title: "Contact",
+      title: "Company",
       links: [
-        { label: "hello@apexadvisory.com", href: "mailto:hello@apexadvisory.com" },
-        { label: "+1 (212) 555-0184", href: "tel:+12125550184" },
-        { label: "New York, NY", href: "#contact" },
+        { label: "About", href: "/about" },
+        { label: "Contact", href: "/contact" },
       ],
     },
     {
-      title: "Resources",
+      title: "Dispatch",
       links: [
-        { label: "Testimonials", href: "#testimonials" },
-        { label: "Team", href: "#team" },
-        { label: "Book a Consultation", href: "#contact" },
+        { label: "Request Pickup", href: "/contact" },
+        { label: "Home", href: "/" },
       ],
     },
   ],
@@ -48,8 +45,8 @@ export default function FooterMultiColumn({
 }: Partial<FooterMultiColumnProps>) {
   return (
     <footer className="bg-foreground text-background">
-      <div className="container mx-auto max-w-7xl px-4 py-12 md:py-16">
-        <div className="animate-fade-in-up grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+      <div className="container mx-auto max-w-7xl px-4 py-12 md:py-16 animate-fade-in-up">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
           <div className="lg:col-span-1">
             <h3 className="text-lg font-bold">{brand}</h3>
             <p className="mt-3 text-sm text-background/70">{description}</p>
@@ -61,7 +58,7 @@ export default function FooterMultiColumn({
                 <ul className="mt-4 space-y-3">
                   {col.links.map(function (link) {
                     return (
-                      <li key={link.href}>
+                      <li key={link.href + link.label}>
                         <Link
                           href={link.href}
                           className="text-sm text-background/70 transition-colors hover:text-background"

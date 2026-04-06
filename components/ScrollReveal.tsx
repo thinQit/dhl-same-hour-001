@@ -1,28 +1,31 @@
-"use client";
+'use client'
 
-import { motion } from "framer-motion";
-import { cn } from "@/lib/utils";
+import { ReactNode } from 'react'
+import { motion } from 'framer-motion'
+import { cn } from '@/lib/utils'
 
 interface ScrollRevealProps {
-  children?: React.ReactNode;
-  className?: string;
-  delay?: number;
+  children: ReactNode
+  className: string
+  delay: number
+  yOffset: number
 }
 
 export default function ScrollReveal({
   children = null,
-  className = "",
+  className = '',
   delay = 0,
+  yOffset = 20,
 }: Partial<ScrollRevealProps>) {
   return (
     <motion.div
-      className={cn(className)}
-      initial={{ opacity: 0, y: 18 }}
+      initial={{ opacity: 0, y: yOffset }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.25 }}
-      transition={{ duration: 0.45, delay }}
+      viewport={{ once: true, margin: '-60px' }}
+      transition={{ duration: 0.5, delay }}
+      className={cn(className)}
     >
       {children}
     </motion.div>
-  );
+  )
 }
